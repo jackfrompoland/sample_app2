@@ -1,0 +1,3 @@
+Aplikacja powstala jako drugie podejscie do zrobienia manuala:
+
+http://ruby.railstutorial.org/book
