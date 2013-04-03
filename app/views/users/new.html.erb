@@ -4,7 +4,12 @@
 <div class="row">
   <div class="span6 offset3">
     <%= form_for(@user) do |f| %>
-
+	  <%= render 'shared/error_messages' %>
+	  <!-- Notice here that we render a partial called ’shared/error_messages’; this reflects the common Rails convention of using a 
+	  dedicated shared/ directory for partials expected to be used in views across multiple controllers. 
+	  (We’ll see this expectation fulfilled in Section 9.1.1.) 
+	  This means that we have to create both the new app/views/shared directory and the _error_messages.html.erb partial file --> 
+	  
       <%= f.label :name %>
       <%= f.text_field :name %>
       
