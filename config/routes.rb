@@ -1,5 +1,6 @@
 SampleApp2::Application.routes.draw do
-  get "users/new"
+  resources :users
+  #get "users/new" tego juz nie potrzebujemy poniewaz linijka powyzej zapewnia cale REST dzialanie na tabeli Users
 
   # get "static_pages/home"
   # get "static_pages/help"

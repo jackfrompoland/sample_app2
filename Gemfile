@@ -30,7 +30,8 @@ gem 'jquery-rails', '2.0.2'
 group :test do
   gem 'capybara', '1.1.2'
   gem 'rb-inotify', '0.8.8'
-  gem 'libnotify', '0.5.9'  
+  gem 'libnotify', '0.5.9'
+  gem 'factory_girl_rails', '4.1.0' #gem do robienia obiektow uzywanych do testow
 end
 
 gem 'execjs'
