@@ -1,3 +1,5 @@
 Aplikacja powstala jako drugie podejscie do zrobienia manuala:
 
 http://ruby.railstutorial.org/book
+
+7.3.1 A working form
