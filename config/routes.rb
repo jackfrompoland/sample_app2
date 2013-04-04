@@ -1,7 +1,8 @@
 SampleApp2::Application.routes.draw do
-  get "users/new"
+  #get "users/new"
 
   resources :users
+  resources :sessions, only: [:new, :create, :destroy]
   #get "users/new" tego juz nie potrzebujemy poniewaz linijka powyzej zapewnia cale REST dzialanie na tabeli Users
 
   # get "static_pages/home"
@@ -12,6 +13,9 @@ SampleApp2::Application.routes.draw do
   root to: 'static_pages#home'
   
   match '/signup',  to: 'users#new'
+  match '/signin',  to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
+  # Note the use of via: :delete for the signout route, which indicates that it should be invoked using an HTTP DELETE request.
     
   match '/help',    to: 'static_pages#help'
   match '/about',   to: 'static_pages#about'
