@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      flash[:success] = "Welcome to the Sample App!" #flash tworzy     
+      flash[:success] = "Welcome to the Sample App!" #flash tworzy napis na stronie, ktory zniknie po refresh i pojawi sie tylko raz    
       redirect_to @user
     else
       render 'new'
