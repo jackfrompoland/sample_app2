@@ -18,6 +18,8 @@ describe User do
   
   it { should respond_to(:admin) }
   it { should respond_to(:authenticate) }
+  
+  it { should respond_to(:microposts) }  
 
   it { should be_valid }
   it { should_not be_admin }
@@ -126,6 +128,39 @@ describe User do
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
-  end  
+  end
     
+  describe "micropost associations" do
+    
+    # This uses the let! (read “let bang”) method in place of let; the reason is that let variables are lazy, meaning that they only spring into existence when 
+    # referenced. The problem is that we want the microposts to exist immediately, so that the timestamps are in the right order and so that @user.microposts isn’t empty. 
+    # We accomplish this with let!, which forces the corresponding variable to come into existence immediately.    
+
+    before { @user.save }
+    
+    let!(:older_micropost) do 
+      FactoryGirl.create(:micropost, user: @user, created_at: 1.day.ago)
+    end
+    
+    let!(:newer_micropost) do
+      FactoryGirl.create(:micropost, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the right microposts in the right order" do
+      @user.microposts.should == [newer_micropost, older_micropost]
+      # to sprawdza czy nowe jest przed starszym, to sie nie uda poniewaz baza ustawia rekordy wg. id a nie wg daty
+      # aby to chcialo przejsc musimy zmienic kolejnosc, robimy to w: "app/models/micropost.rb"
+      # default_scope order: 'microposts.created_at DESC' 
+    end
+    
+    it "should destroy associated microposts" do
+      microposts = @user.microposts.dup
+      @user.destroy
+      microposts.should_not be_empty
+      microposts.each do |micropost|
+        Micropost.find_by_id(micropost.id).should be_nil
+      end
+    end
+    
+  end    
 end

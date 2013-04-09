@@ -4,6 +4,7 @@ SampleApp2::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   #get "users/new" tego juz nie potrzebujemy poniewaz linijka powyzej zapewnia cale REST dzialanie na tabeli Users
+  resources :microposts, only: [:create, :destroy]
 
   # get "static_pages/home"
   # get "static_pages/help"

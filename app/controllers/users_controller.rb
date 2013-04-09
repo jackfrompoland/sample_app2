@@ -18,6 +18,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id]) #params bierze sie z adresu wpisanego do przegladarki: users/1
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
   
   def new
@@ -64,10 +65,10 @@ class UsersController < ApplicationController
       # flash[:notice] = "Please sign in."
       # redirect_to signin_url, wymienione przez nastepujacy kod:
       
-      unless signed_in?
-        store_location
-        redirect_to signin_url, notice: "Please sign in."
-      end
+      # unless signed_in?
+        # store_location
+        # redirect_to signin_url, notice: "Please sign in."
+      # end usuniete poniewaz dodalismy ten kod do pliku 'sessions_helper.rb'
       
     end
     

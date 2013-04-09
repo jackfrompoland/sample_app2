@@ -18,7 +18,11 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation
   has_secure_password
+  has_many :microposts, dependent: :destroy
+  # it arranges for the dependent microposts (i.e., the ones belonging to the given user) to be destroyed when the user itself is destroyed. 
+  # This prevents userless microposts from being stranded in the database when admins choose to remove users from the system.  
   
+    
   #before_save { |user| user.email = email.downcase }
   before_save { email.downcase! }
   before_save :create_remember_token

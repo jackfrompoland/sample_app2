@@ -16,8 +16,15 @@ FactoryGirl.define do
     
     factory :admin do
       admin true
-    end
-    
-    # With the code in Listing 9.43, we can now use FactoryGirl.create(:admin) to create an administrative user in our tests.    
+    end    
+  end  
+  
+  
+  
+  # With the code in Listing 9.43, we can now use FactoryGirl.create(:admin) to create an administrative user in our tests.
+  factory :micropost do
+    content "Lorem ipsum"
+    user
   end
+  
 end
