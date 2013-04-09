@@ -1,0 +1,23 @@
+<% provide(:title, 'All users') %>
+
+<h1>All users</h1>
+
+<%= will_paginate %>
+
+<ul class="users">
+  <% @users.each do |user| %>
+    <li>
+      <%= gravatar_for user %>
+      <%= link_to user.name, user %>
+    </li>  
+  
+  <% end %>  
+</ul>
+
+<!-- The will_paginate method is a little magical; inside a users view, it automatically looks 
+for an @users object, and then displays pagination links to access other pages. 
+The view in Listing 9.34 doesn’t work yet, though, because currently @users contains the results of User.all 
+(Listing 9.24), which is of class Array, whereas will_paginate expects an object of class ActiveRecord::Relation. 
+Happily, this is just the kind of object returned by the paginate method added by the will_paginate gem to all Active Record objects: -->
+
+<%= will_paginate %>

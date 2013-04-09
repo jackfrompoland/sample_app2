@@ -16,9 +16,25 @@ module SessionsHelper
     @current_user ||= User.find_by_remember_token(cookies[:remember_token]) #wyszuka user tylko wtedy kiedy @current_user nie jest jeszcze zdefiniowany
   end
   
+  def current_user?(user)
+    user == current_user
+  end  
+  
   def sign_out
     self.current_user = nil
     cookies.delete(:remember_token)
-  end  
+  end
+  
+  def redirect_back_or(default)
+    redirect_to(session[:return_to] || default)
+    session.delete(:return_to)
+  end
+
+  def store_location
+    session[:return_to] = request.url
+    # The storage mechanism is the session facility provided by Rails, which you can think of as being like an instance of the cookies variable 
+    # from Section 8.2.1 that automatically expires upon browser close. We also use the request object to get the url, i.e., the URI/URL of the 
+    # requested page. The store_location method puts the requested URI in the session variable under the key :return_to.    
+  end
     
 end
