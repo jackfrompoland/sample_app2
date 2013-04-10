@@ -90,7 +90,7 @@ describe "Authentication" do
 
         describe "visiting the edit page" do
           before { visit edit_user_path(user) }
-          it { should have_selector('title', text: 'Sign in') }
+          it { should have_selector('title', content: 'Sign in') } # wymienilem 'text' na content, bez tego capybara zglaszala blad "expected css title...... to return something 
         end
 
         describe "submitting to the update action" do
@@ -104,7 +104,7 @@ describe "Authentication" do
         
         describe "visiting the user index" do
           before { visit users_path }
-          it { should have_selector('title', text: 'Sign in') }
+          it { should have_selector('title', content: 'Sign in') } # wymienilem 'text' na content, bez tego capybara zglaszala blad "expected css title...... to return something
         end
                 
       end

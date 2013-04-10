@@ -34,6 +34,16 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: {minimum: 6}
   validates :password_confirmation, presence: true
   
+  def feed
+    # This is preliminary. See "Following users" for the full implementation.
+    Micropost.where("user_id = ?", id)
+    # ensures that id is properly escaped before being included in the underlying SQL query, thereby avoiding a serious security hole 
+    # called SQL injection. The id attribute here is just an integer, so there is no danger in this case, but always escaping variables 
+    # injected into SQL statements is a good habit to cultivate.
+
+
+  end
+  
   private
 
     def create_remember_token
