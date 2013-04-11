@@ -1,10 +1,23 @@
 SampleApp2::Application.routes.draw do
   #get "users/new"
 
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers
+      
+      # You might suspect that the URIs will look like /users/1/following and /users/1/followers, and that is exactly what the code in Listing 11.18 does. 
+      # Since both pages will be showing data, we use get to arrange for the URIs to respond to GET requests (as required by the REST convention for such pages), 
+      # and the member method means that the routes respond to URIs containing the user id.       
+      
+    end
+  end
   resources :sessions, only: [:new, :create, :destroy]
   #get "users/new" tego juz nie potrzebujemy poniewaz linijka powyzej zapewnia cale REST dzialanie na tabeli Users
   resources :microposts, only: [:create, :destroy]
+  
+  resources :sessions,      only: [:new, :create, :destroy]
+  resources :microposts,    only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]  
 
   # get "static_pages/home"
   # get "static_pages/help"
