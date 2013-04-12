@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html>
+  <!-- strona glowna naszego projektu -->
+  
   <head>
     <title><%= full_title(yield(:title)) %></title>
     <%= stylesheet_link_tag    "application", media: "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
-    <%= render 'layouts/shim' %>    
+    <%= render 'layouts/shim' %> 
+    <!-- dla przegladarek, ktore nie obsluguja HTML5 -->    
   </head>
+  
   <body>
     <%= render 'layouts/header' %>
     <div class="container">
-      <% flash.each do |key, value| %>
+      
+      <!-- <% flash.each do |key, value| %>
         <div class="alert alert-<%= key %>"><%= value %></div>
-      <% end %>
+      <% end %> -->
       
       <% flash.each do |key, value| %>
         <%= content_tag(:div, value, class: "alert alert-#{key}") %>
       <% end %>      
+      <!-- tu bedziemy wrzucac alerty -->
             
-      <%= yield %>
+      <%= yield %> 
+      <!-- tu uzupelnia wlasciwa zawartosc strony -->  
+      
       <%= render 'layouts/footer' %>
       <%= debug(params) if Rails.env.development? %> <!-- dodaje debug info na dole strony ale tylko jesli dzialamy w trybie development --> 
     </div>
   </body>
+  
 </html>

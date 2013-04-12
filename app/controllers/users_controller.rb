@@ -1,12 +1,17 @@
 class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
-  # The authorization application code uses a before filter, which arranges for a particular method to be 
-  # called before the given actions. To require users to be signed in, we define a signed_in_user method 
-  # and invoke it using before_filter :signed_in_user,
+  # before_filter definiuje metode, ktora bedzie wykonana zanim zostana wykonane pozostale metody
+  # domyslnie before_filter bedzie stosowany dla wszystkich metod jakie mozna wywolac na kontrolerze
+  # tutaj wskazujemy metody dla jakich bedzie odpalony
+  # metoda ':signed_in_user' jest zdefiniowana w pliku: 'sessions_helper.rb'
+  
+  
+  
   before_filter :correct_user,   only: [:edit, :update]  
   # correct_user jest zdefiniowany na dole pliku, metoda ta uzywa metody ' current_user?' zdefiniowanej w 'sessions_helper.rb'
   
   before_filter :admin_user,     only: :destroy
+  # admin_user jest zdefiniowany na dole tego pliku
   
   
   def following

@@ -17,6 +17,8 @@
 
 class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation
+  # wydaje mi sie, ze tutaj ustalamy jakie pola/metody z ActiveRecord sa dostepne dla obiektow klasy User 
+  
   has_secure_password
   has_many :microposts, dependent: :destroy
   # it arranges for the dependent microposts (i.e., the ones belonging to the given user) to be destroyed when the user itself is destroyed. 
@@ -34,7 +36,6 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: {minimum: 6}
   validates :password_confirmation, presence: true
   
-  has_many :microposts, dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy  
   has_many :followed_users, through: :relationships, source: :followed
   has_many :reverse_relationships, foreign_key: "followed_id",
@@ -49,16 +50,15 @@ class User < ActiveRecord::Base
     # called SQL injection. The id attribute here is just an integer, so there is no danger in this case, but always escaping variables 
     # injected into SQL statements is a good habit to cultivate.
     
-    Micropost.from_users_followed_by(self)    
+    Micropost.from_users_followed_by(self) # 'from_users_followed_by' jest zdefiniowane w 'micropost.rb'    
 
   end
   
-  def following?(other_user)
+  def following?(other_user) # to jest definicja metody 'following?', ktora jest uzywana w '_follow_form'
     relationships.find_by_followed_id(other_user.id)
   end
 
   def follow!(other_user)
-    relationships.create!(followed_id: other_user.id)
   end
   
   def unfollow!(other_user)
@@ -66,6 +66,8 @@ class User < ActiveRecord::Base
   end
   
   private
+  # sekcja, ktora bedzie widoczna tylko wewnetrznie przez model User
+  
 
     def create_remember_token
       self.remember_token = SecureRandom.urlsafe_base64
